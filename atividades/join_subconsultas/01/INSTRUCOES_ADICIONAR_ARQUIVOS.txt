@@ -1,1 +1,0 @@
-Coloque nesta pasta os arquivos DER_Biblioteca_vetorial.pdf e bd.sql para que os links do README funcionem localmente.

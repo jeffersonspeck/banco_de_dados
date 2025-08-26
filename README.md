@@ -64,11 +64,36 @@ Repositório para materiais e exercícios da disciplina de **Banco de Dados**. A
 
 
 ### Opção C) Ambiente windows
-- **[aulas](materiais/configuracao/instalacao_postgres.pdf)** — Manual simplificado de instação. 
+- **[Cpnfigurações](materiais/configuracao/instalacao_postgres.pdf)** — Manual simplificado de instação. 
 ---
 
 ## Licença
-Defina a licença do repositório (por exemplo, MIT).
+Licença de Uso e Atribuição (Permissiva)
 
+Copyright (c) 2025 Jefferson Rodrigo Speck
+
+PERMISSÃO é concedida, gratuitamente, a qualquer pessoa que obtenha uma cópia deste
+repositório e de seus conteúdos (código, textos, imagens, dados e demais materiais), para
+usar, copiar, modificar, fundir, publicar, distribuir, sublicenciar e/ou vender cópias,
+para qualquer finalidade, inclusive comercial, observadas as seguintes CONDIÇÕES:
+
+1) ATRIBUIÇÃO: Você deve creditar de forma apropriada o autor original, citando
+   “Jefferson Rodrigo Speck”, e, sempre que possível, incluir um link para este repositório
+   ou para a página do projeto. Ex.: “Conteúdo baseado em Jefferson Rodrigo Speck”.
+2) AVISO DE LICENÇA: Esta nota de copyright e de licença deve ser mantida em todas
+   as cópias e derivações significativas.
+3) MUDANÇAS: Se você modificar o conteúdo, indique que mudanças foram feitas.
+4) SEM RESTRIÇÕES ADICIONAIS: Você não pode aplicar termos legais ou medidas
+   tecnológicas que restrinjam legalmente outros de fazer algo permitido por esta licença.
+
+ISENÇÃO DE GARANTIA: O CONTEÚDO É FORNECIDO “NO ESTADO EM QUE SE ENCONTRA”,
+SEM QUALQUER GARANTIA, EXPRESSA OU IMPLÍCITA, INCLUINDO, MAS NÃO SE LIMITANDO A,
+GARANTIAS DE COMERCIABILIDADE, ADEQUAÇÃO A UM PROPÓSITO ESPECÍFICO E
+NÃO-INFRAÇÃO. EM NENHUM CASO OS AUTORES OU DETENTORES DE DIREITOS SERÃO
+RESPONSÁVEIS POR QUALQUER REIVINDICAÇÃO, DANO OU OUTRA RESPONSABILIDADE,
+SEJA EM AÇÃO CONTRATUAL, ILÍCITO CIVIL OU OUTRA, DECORRENTE DE, OU EM
+CONEXÃO COM O CONTEÚDO OU O USO OU OUTRAS NEGOCIAÇÕES COM O CONTEÚDO.
+
+Esta licença não concede direitos sobre marcas, logotipos ou nomes dos autores.
 
 > Novos conjuntos (CTEs/Recursão, Views/Índices, Funções/Triggers, Transações/ACID, etc.) serão adicionados — conteúdo em breve.
