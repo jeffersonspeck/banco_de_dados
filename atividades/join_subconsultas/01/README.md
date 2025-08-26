@@ -25,7 +25,7 @@ O ambiente recomendado para execução é o **[db-fiddle.com](https://www.db-fid
 
 ## Questões e Respostas
 
-### 1) Relatório de itens de empréstimo (aluno, título, data prevista, situação)
+### 1) A coordenação quer um relatório de itens de empréstimo, mostrando aluno, título do livro, data prevista e situação (ativo/devolvido) para acompanhamento diário.
 ```sql
 SELECT
   s.full_name        AS aluno,
@@ -40,7 +40,7 @@ JOIN book      b ON b.book_id = e.book_id
 ORDER BY li.expected_return_date, s.full_name, b.title;
 ```
 
-### 2) Empréstimos ativos por aluno (inclui quem tem zero)
+### 2) A biblioteca precisa saber quantos empréstimos ativos cada aluno possui neste momento, incluindo quem ainda não pegou nada emprestado.
 ```sql
 SELECT
   s.student_id,
@@ -53,7 +53,7 @@ GROUP BY s.student_id, s.full_name
 ORDER BY s.full_name;
 ```
 
-### 3) Livros sem nenhum exemplar cadastrado
+### 3) A equipe de acervo vai planejar compras. Liste livros que ainda não possuem nenhum exemplar cadastrado.
 ```sql
 SELECT b.book_id, b.title
 FROM book b
@@ -62,7 +62,7 @@ WHERE e.exemplar_id IS NULL
 ORDER BY b.title;
 ```
 
-### 4) Livros e respectivos autores (não esconder livros sem autor)
+### 4) A comissão editorial quer um panorama de livros e seus respectivos autores, mas sem ocultar livros que ainda não têm autor vinculado.
 ```sql
 SELECT
   b.book_id,
@@ -75,7 +75,7 @@ LEFT JOIN author a       ON a.author_id = ba.author_id
 ORDER BY b.title, a.name NULLS LAST;
 ```
 
-### 5) Autores sem publicações + Livros sem autores
+### 5) A coordenação de pesquisa quer identificar autores sem publicações no acervo atual e, ao mesmo tempo, livros sem autores associados, para ações de curadoria.
 ```sql
 -- tipo: 'AUTOR_SEM_PUBLICACOES' ou 'LIVRO_SEM_AUTOR'
 SELECT 'AUTOR_SEM_PUBLICACOES' AS tipo, a.author_id AS id, a.name AS nome_ou_titulo
@@ -93,7 +93,7 @@ WHERE ba.book_id IS NULL
 ORDER BY tipo, nome_ou_titulo;
 ```
 
-### 6) Grade de combinações entre cursos e editoras
+### 6) Para negociar assinaturas com editoras, gere uma grade de combinações entre cursos e editoras para estimar demanda cruzada.
 ```sql
 SELECT c.course_id, c.name AS curso, p.publisher_id, p.name AS editora
 FROM course c
@@ -101,7 +101,7 @@ CROSS JOIN publisher p
 ORDER BY c.name, p.name;
 ```
 
-### 7) Pareamento de alunos do mesmo curso (sem repetições/espelhamentos)
+### 7) A secretaria deseja parear alunos do mesmo curso para atividades em dupla, sem repetições ou espelhamentos (A–B e B–A).
 ```sql
 WITH ranked AS (
   SELECT
@@ -128,7 +128,7 @@ WHERE (r1.rn % 2) = 1
 ORDER BY r1.curso, r1.full_name, r2.full_name NULLS LAST;
 ```
 
-### 8) Aluno × Curso (quadro simples)
+### 8) A coordenação quer um quadro simples com aluno e nome do curso ao qual está vinculado, para conferência de matrícula.
 ```sql
 SELECT s.student_id, s.full_name AS aluno, c.name AS curso
 FROM student s
@@ -136,7 +136,7 @@ JOIN course  c ON c.course_id = s.course_id
 ORDER BY s.full_name;
 ```
 
-### 9) Livros e seus autores (ordenado por título e autor)
+### 9) A curadoria literária precisa de uma lista com livros e seus autores (um livro pode ter vários), organizada alfabeticamente por título e autor.
 ```sql
 SELECT b.title AS livro, a.name AS autor
 FROM book b
@@ -145,7 +145,7 @@ LEFT JOIN author a       ON a.author_id = ba.author_id
 ORDER BY b.title, a.name NULLS LAST;
 ```
 
-### 10) Alunos que já pegaram 'Introduction to Algorithms (CLRS)'
+### 10) O professor de Algoritmos pediu: quais alunos já pegaram qualquer exemplar do livro Introduction to Algorithms (CLRS)?
 ```sql
 SELECT DISTINCT s.student_id, s.full_name
 FROM student s
@@ -157,7 +157,7 @@ WHERE b.title LIKE '%Introduction to Algorithms%'
 ORDER BY s.full_name;
 ```
 
-### 11) Alunos com pelo menos um empréstimo ativo (lembretes)
+### 11) A biblioteca quer enviar lembretes. Liste alunos que possuem pelo menos um empréstimo ativo no momento.
 ```sql
 SELECT DISTINCT s.student_id, s.full_name, s.email
 FROM student s
@@ -167,7 +167,7 @@ WHERE li.return_date IS NULL
 ORDER BY s.full_name;
 ```
 
-### 12) Livros sem autores associados (revisão de metadados)
+### 12) Para revisão de metadados, liste todos os livros que não possuem autores associados, a fim de completar o cadastro.
 ```sql
 SELECT b.book_id, b.title
 FROM book b
@@ -176,7 +176,7 @@ WHERE ba.book_id IS NULL
 ORDER BY b.title;
 ```
 
-### 13) Editora com mais títulos cadastrados
+### 13) A gestão quer saber qual editora tem mais títulos cadastrados na base, para priorizar novas aquisições.
 ```sql
 SELECT p.publisher_id, p.name AS editora, COUNT(b.book_id) AS qtd_titulos
 FROM publisher p
@@ -186,7 +186,7 @@ ORDER BY qtd_titulos DESC, p.name
 LIMIT 1;
 ```
 
-### 14) Top 3 alunos com mais itens emprestados no histórico
+### 14) A bibliotecária precisa de um ranking dos 3 alunos com mais itens emprestados no histórico, para reconhecimento de leitura.
 ```sql
 SELECT
   s.student_id,
@@ -200,7 +200,7 @@ ORDER BY total_itens DESC, s.full_name
 LIMIT 3;
 ```
 
-### 15) Alunos com mais de 1 empréstimo ativo (monitoramento)
+### 15) A política de uso permite até 3 itens simultâneos. Verifique quais alunos ultrapassaram 1 empréstimo ativo (para monitoramento preventivo).
 ```sql
 SELECT
   s.student_id,
@@ -215,7 +215,7 @@ HAVING COUNT(*) > 1
 ORDER BY emprestimos_ativos DESC, s.full_name;
 ```
 
-### 16) Data mais recente de devolução por título
+### 16) O setor de devoluções quer saber, por título, qual foi a data mais recente de devolução já registrada.
 ```sql
 SELECT
   b.title,
@@ -228,7 +228,7 @@ GROUP BY b.title
 ORDER BY b.title;
 ```
 
-### 17) Autores presentes em 2 ou mais livros
+### 17) Para destacar pesquisadores frequentes, liste autores que aparecem em 2 ou mais livros do acervo.
 ```sql
 SELECT
   a.author_id,
@@ -241,7 +241,7 @@ HAVING COUNT(DISTINCT ba.book_id) >= 2
 ORDER BY qtd_livros DESC, a.name;
 ```
 
-### 18) Exemplares disponíveis hoje (sem empréstimo ativo)
+### 18) O balcão precisa saber quais exemplares estão disponíveis hoje (ou seja, que não estejam em empréstimo ativo).
 ```sql
 SELECT
   e.exemplar_id,
@@ -259,7 +259,7 @@ WHERE NOT EXISTS (
 ORDER BY b.title, e.copy_code;
 ```
 
-### 19) Cursos com ao menos um aluno com empréstimo ativo
+### 19) A coordenação de curso quer confirmar abrangência: quais cursos possuem ao menos um aluno com empréstimo ativo?
 ```sql
 SELECT DISTINCT c.course_id, c.name AS curso
 FROM course c
@@ -274,7 +274,7 @@ WHERE EXISTS (
 ORDER BY c.name;
 ```
 
-### 20) Livros com a quantidade de autores (incluindo zero)
+### 20) Para estatísticas editoriais, liste todos os livros com a quantidade de autores associados (incluindo os que têm zero autores).
 ```sql
 SELECT
   b.book_id,
